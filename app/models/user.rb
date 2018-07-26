@@ -9,9 +9,6 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
 
-  has_one :host
-
-  def is_host?
-    host.present?
-  end
+  has_one :host, dependent: :destroy
+  has_and_belongs_to_many :challenges
 end

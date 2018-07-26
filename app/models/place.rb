@@ -1,3 +1,6 @@
 class Place < ApplicationRecord
-  belongs_to :location
+  has_one :location
+  has_many :challenges
+
+  belongs_to :host
 end
