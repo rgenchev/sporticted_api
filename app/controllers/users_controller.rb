@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      if params[:is_host]
+        Host.create(user: @user)
+      end
+
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -18,6 +22,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name,
                                    :email,
                                    :password,
-                                   :password_confirmation)
+                                   :password_confirmation,
+                                   :is_host)
     end
 end
