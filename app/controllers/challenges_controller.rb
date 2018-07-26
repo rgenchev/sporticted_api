@@ -17,6 +17,8 @@ class ChallengesController < ApplicationController
   def create
     @challenge = Challenge.new(challenge_params)
 
+    # challenge.users << [challenge.challenger, challenge.challenged]
+
     if @challenge.save
       render json: @challenge, status: :created, location: @challenge
     else
