@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_10_212035) do
+ActiveRecord::Schema.define(version: 2018_07_17_211618) do
 
   create_table "challenges", force: :cascade do |t|
     t.integer "winner_id"
@@ -32,11 +32,9 @@ ActiveRecord::Schema.define(version: 2018_07_10_212035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "place_id"
-    t.integer "rating"
-    t.string "email"
-    t.string "password_digest"
-    t.string "name"
+    t.integer "user_id"
     t.index ["place_id"], name: "index_hosts_on_place_id"
+    t.index ["user_id"], name: "index_hosts_on_user_id"
   end
 
   create_table "locations", force: :cascade do |t|
