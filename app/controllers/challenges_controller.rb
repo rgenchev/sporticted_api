@@ -17,9 +17,9 @@ class ChallengesController < ApplicationController
   def create
     @challenge = Challenge.new(challenge_params)
 
-    # challenge.users << [challenge.challenger, challenge.challenged]
-
     if @challenge.save
+      @challenge.users << [@challenge.challenger, @challenge.challenged]
+
       render json: @challenge, status: :created, location: @challenge
     else
       render json: @challenge.errors, status: :unprocessable_entity
@@ -50,6 +50,9 @@ class ChallengesController < ApplicationController
     def challenge_params
       params.require(:challenge).permit(:challenger_id,
                                         :challenged_id,
-                                        :place_id)
+                                        :place_id,
+                                        :is_confirmed,
+                                        :is_accepted,
+                                        :game_id)
     end
 end
