@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_121705) do
+ActiveRecord::Schema.define(version: 2018_07_26_135328) do
 
   create_table "activities", force: :cascade do |t|
-    t.integer "game_id"
     t.integer "challenge_id"
     t.integer "result_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_activities_on_challenge_id"
-    t.index ["game_id"], name: "index_activities_on_game_id"
     t.index ["result_id"], name: "index_activities_on_result_id"
   end
 
@@ -32,8 +30,10 @@ ActiveRecord::Schema.define(version: 2018_07_26_121705) do
     t.datetime "date"
     t.boolean "is_confirmed", default: false
     t.boolean "is_accepted", default: false
+    t.integer "game_id"
     t.index ["challenged_id"], name: "index_challenges_on_challenged_id"
     t.index ["challenger_id"], name: "index_challenges_on_challenger_id"
+    t.index ["game_id"], name: "index_challenges_on_game_id"
     t.index ["place_id"], name: "index_challenges_on_place_id"
   end
 
