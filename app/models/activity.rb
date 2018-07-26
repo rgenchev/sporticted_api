@@ -1,5 +1,4 @@
 class Activity < ApplicationRecord
-  belongs_to :game
   belongs_to :challenge
   belongs_to :result
 end
