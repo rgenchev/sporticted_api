@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :hosts
-  resources :challenges
+  resources :challenges do
+    resources :results
+  end
   resources :games
   resources :places
   resources :locations

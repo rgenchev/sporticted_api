@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_135328) do
+ActiveRecord::Schema.define(version: 2018_07_27_084036) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "challenge_id"
-    t.integer "result_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["challenge_id"], name: "index_activities_on_challenge_id"
-    t.index ["result_id"], name: "index_activities_on_result_id"
+    t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
   create_table "challenges", force: :cascade do |t|
@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 2018_07_26_135328) do
     t.boolean "is_confirmed", default: false
     t.boolean "is_accepted", default: false
     t.integer "game_id"
+    t.integer "creator_id"
     t.index ["challenged_id"], name: "index_challenges_on_challenged_id"
     t.index ["challenger_id"], name: "index_challenges_on_challenger_id"
+    t.index ["creator_id"], name: "index_challenges_on_creator_id"
     t.index ["game_id"], name: "index_challenges_on_game_id"
     t.index ["place_id"], name: "index_challenges_on_place_id"
   end
@@ -91,6 +93,8 @@ ActiveRecord::Schema.define(version: 2018_07_26_135328) do
     t.integer "loser_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "activity_id"
+    t.index ["activity_id"], name: "index_results_on_activity_id"
     t.index ["loser_id"], name: "index_results_on_loser_id"
     t.index ["winner_id"], name: "index_results_on_winner_id"
   end

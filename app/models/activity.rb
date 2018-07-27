@@ -1,6 +1,7 @@
 class Activity < ApplicationRecord
   belongs_to :challenge
-  belongs_to :result
+  has_one :result
+  belongs_to :user
 end
 
 

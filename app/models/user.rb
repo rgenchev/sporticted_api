@@ -10,5 +10,8 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
 
   has_one :host, dependent: :destroy
-  has_and_belongs_to_many :challenges
+  has_and_belongs_to_many :challenges, dependent: :nullify
+  has_many :activities, dependent: :destroy
+
+  scope :clients, -> { where(is_host: false) }
 end

@@ -3,19 +3,25 @@ class ChallengesController < ApplicationController
 
   # GET /challenges
   def index
-    @challenges = Challenge.all
+    @challenges = @current_user.challenges
+
+    authorize @challenges
 
     render json: @challenges
   end
 
   # GET /challenges/1
   def show
+    authorize @challenge
+
     render json: @challenge
   end
 
   # POST /challenges
   def create
     @challenge = Challenge.new(challenge_params)
+
+    @challenge.date = Date.today
 
     if @challenge.save
       @challenge.users << [@challenge.challenger, @challenge.challenged]
@@ -28,6 +34,8 @@ class ChallengesController < ApplicationController
 
   # PATCH/PUT /challenges/1
   def update
+    authorize @challenge
+
     if @challenge.update(challenge_params)
       render json: @challenge
     else
@@ -48,11 +56,14 @@ class ChallengesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def challenge_params
-      params.require(:challenge).permit(:challenger_id,
-                                        :challenged_id,
-                                        :place_id,
-                                        :is_confirmed,
-                                        :is_accepted,
-                                        :game_id)
+      if @current_user.is_host
+        params.require(:challenge).permit(:is_confirmed)
+      else
+        params.require(:challenge).permit(:challenger_id,
+                                          :challenged_id,
+                                          :place_id,
+                                          :is_accepted,
+                                          :game_id)
+      end
     end
 end
